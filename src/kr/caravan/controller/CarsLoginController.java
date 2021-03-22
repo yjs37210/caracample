@@ -18,10 +18,15 @@ public class CarsLoginController extends HttpServlet {
 
 		String car_name = request.getParameter("car_name");
 		String pw = request.getParameter("pw");
+		int admin = Integer.parseInt(request.getParameter("admin"));
+		PrintWriter out = response.getWriter();
+
+		if ((admin == 0 && car_name.equals("CaravanAdmin")) || (admin == 1 && !car_name.equals("CaravanAdmin"))) {
+				out.print("inaccesible");
+		}
+		
 		carsDAO dao = new carsDAO();
 		boolean check = dao.login(car_name, pw);
-
-		PrintWriter out = response.getWriter();
 		out.print(check);
 
 	}
